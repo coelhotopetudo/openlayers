@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Map</title>
+        <link rel="stylesheet" href="openlayers/theme/default/style.css" type="text/css">
+        <style>
+            #map-id {
+                width: 512px;
+                height: 256px;
+            }
+        </style>
+        <script src="openlayers/lib/OpenLayers.js"></script>
+    </head>
+    <body>
+        <h1>My Map</h1>
+        <div id="map-id"></div>
+        <script>
+            var medford = new OpenLayers.Bounds(
+                4284890, 253985,
+                4288865, 257980
+            );
+            var map = new OpenLayers.Map("map-id", {
+                projection: new OpenLayers.Projection("EPSG:2270"),
+                units: "ft",
+                maxExtent: medford,
+                restrictedExtent: medford,
+                maxResolution: 2.5,
+                numZoomLevels: 5
+            });
+
+            var base = new OpenLayers.Layer.WMS(
+                "Medford Streets & Buildings",
+                "http://suite.opengeo.org/geoserver/ows",
+                {layers: "medford:streets"}
+            );
+            map.addLayer(base);
+
+            map.zoomToMaxExtent();
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
